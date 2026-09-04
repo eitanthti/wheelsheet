@@ -1,0 +1,53 @@
+name: Join the WheelSheet waitlist
+description: Get the weekly issue and tell us what would make it worth paying for.
+title: "Waitlist: "
+labels: ["waitlist"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest. Answer what you like; every field is optional except the last dropdown.
+        **This issue is public on GitHub.** If you would rather not post an email address, leave it blank and click **Watch → Custom → Issues** on the repo instead; every new issue is announced there.
+  - type: input
+    id: email
+    attributes:
+      label: Email (optional, public)
+      description: Only if you want the issue sent to you directly. Leave blank to just watch the repo.
+      placeholder: you@example.com
+    validations:
+      required: false
+  - type: dropdown
+    id: how
+    attributes:
+      label: How do you sell puts today?
+      options:
+        - Not yet
+        - By hand, from the broker's chain
+        - With a paid tool
+        - With my own scripts
+    validations:
+      required: false
+  - type: input
+    id: tool
+    attributes:
+      label: Which tool, if any?
+      placeholder: Option Samurai, Wheel Strategy Options, QuantWheel, a spreadsheet...
+    validations:
+      required: false
+  - type: dropdown
+    id: pay
+    attributes:
+      label: If WheelSheet did what the page describes, would you pay $29 a month?
+      options:
+        - Yes
+        - Maybe, at a lower price
+        - No
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What would make you pay?
+      description: A column you are missing, a broker sync, a journal, an alert, anything.
+    validations:
+      required: false

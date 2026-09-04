@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WheelSheet</title>
+<meta name="description" content="A weekly, filter-driven watchlist for cash-secured-put sellers. 25 US names ranked by 30-day put premium yield, with IV rank on real IBKR-sourced history.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --ink:#1a2229; --ink-2:#4a545c; --ink-3:#7d868d;
+  --line:#d8dcd6; --line-2:#e8ebe6;
+  --accent:#1f4e9e; --accent-ink:#173d7c; --accent-soft:#e4ebf7;
+  --yield:#2a7a55; --yield-soft:#e2f0e8;
+  --warn:#b8741a; --warn-soft:#faefda;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101418; --surface:#171d23; --ink:#e6e9ec; --ink-2:#aeb6bd; --ink-3:#7c858d;
+    --line:#2c353d; --line-2:#222a31;
+    --accent:#7ea6e8; --accent-ink:#a9c4f2; --accent-soft:#1c2c47;
+    --yield:#5fc08f; --yield-soft:#16302a;
+    --warn:#dea24f; --warn-soft:#3a2b12;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#171d23; --ink:#e6e9ec; --ink-2:#aeb6bd; --ink-3:#7c858d;
+  --line:#2c353d; --line-2:#222a31;
+  --accent:#7ea6e8; --accent-ink:#a9c4f2; --accent-soft:#1c2c47;
+  --yield:#5fc08f; --yield-soft:#16302a;
+  --warn:#dea24f; --warn-soft:#3a2b12;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header.top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand small{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-left:10px;font-weight:400}
+nav a{font-size:.92rem;margin-left:22px;text-decoration:none;color:var(--ink-2)}
+nav a:hover{color:var(--ink)}
+.hero{padding:64px 0 36px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:end}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 em{font-style:italic;font-weight:600;color:var(--accent-ink)}
+.lede{font-size:1.15rem;color:var(--ink-2);max-width:56ch;margin:22px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-block;padding:13px 22px;border-radius:3px;text-decoration:none;font-weight:600;font-size:.98rem;border:1px solid transparent}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink-2)}
+.figure{border:1px solid var(--line);background:var(--surface);padding:22px 24px}
+.figure .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.figure .v{font-family:var(--mono);font-size:3.2rem;line-height:1;font-weight:500;color:var(--yield);margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.figure .v small{font-size:1.1rem;color:var(--ink-3);font-weight:400;margin-left:6px}
+.figure p{margin:8px 0 0;font-size:.92rem;color:var(--ink-2);max-width:40ch}
+.figure .row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:18px;border-top:1px solid var(--line-2)}
+.figure .row div{padding:12px 12px 0 0}
+.figure .row div+div{padding-left:12px;border-left:1px solid var(--line-2)}
+.figure .row b{display:block;font-family:var(--mono);font-weight:500;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.figure .row span{font-size:.74rem;color:var(--ink-3)}
+section{padding:40px 0}
+h2{font-family:var(--display);font-weight:500;font-size:1.75rem;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--ink-2);max-width:62ch;margin:0 0 22px}
+.label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.sheet{border:1px solid var(--line);background:var(--surface)}
+.sheet .bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.76rem;color:var(--ink-2)}
+.sheet .bar .ex{color:var(--warn);font-weight:500}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:960px}
+th{font-family:var(--mono);font-weight:500;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:11px 12px;border-bottom:1px solid var(--line-2);text-align:right;font-family:var(--mono);font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.t{font-family:var(--sans);font-weight:600;font-size:.95rem}
+td.t span{display:block;font-family:var(--sans);font-weight:400;font-size:.78rem;color:var(--ink-3)}
+td.y{color:var(--yield);font-weight:500}
+td.e{color:var(--warn)}
+tr:last-child td{border-bottom:none}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.cols div{padding:18px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cols b{display:block;font-family:var(--mono);font-size:.8rem;font-weight:500;margin-bottom:6px}
+.cols p{margin:0;font-size:.9rem;color:var(--ink-2)}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.how p{max-width:56ch}
+.quiet{background:var(--surface);border:1px solid var(--line);padding:22px 24px;max-width:none}
+.quiet h3{font-family:var(--display);font-weight:500;font-size:1.25rem;margin:0 0 8px}
+.quiet ul{margin:8px 0 0;padding-left:20px;color:var(--ink-2)}
+.quiet li{margin:6px 0}
+footer{border-top:1px solid var(--line);padding:32px 0 56px;font-size:.86rem;color:var(--ink-2)}
+footer p{max-width:80ch;margin:8px 0}
+footer .label{margin-bottom:6px;display:block}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-top:40px}.how{grid-template-columns:1fr}nav a{margin-left:14px}}
+@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./">WheelSheet<small>weekly · Sunday</small></a>
+    <nav><a href="watchlist/">Latest issue</a><a href="#method">Method</a><a href="https://github.com/eitanthti/wheelsheet">GitHub</a></nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Twenty-five names, ranked by what a <em>30-day put</em> actually pays.</h1>
+      <p class="lede">A weekly, filter-driven watchlist for cash-secured-put sellers. Every column is derived from price and options data you can check. Nothing on it is a recommendation. The filters are yours.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/eitanthti/wheelsheet/issues/new?template=waitlist.yml">Join the waitlist</a>
+        <a class="btn ghost" href="https://github.com/eitanthti/wheelsheet">Star the repo</a>
+      </div>
+    </div>
+    <div class="figure">
+      <span class="k">Example · 30-day put yield, annualised on strike</span>
+      <div class="v">31.4<small>% / yr</small></div>
+      <p>Premium collected for selling the ~0.30-delta put with 30 days to expiry, divided by the cash it ties up, scaled to a year.</p>
+      <div class="row">
+        <div><b>52</b><span>IV rank, 252 days</span></div>
+        <div><b>+4.1</b><span>VRP, IV − HV30</span></div>
+        <div><b>61 d</b><span>to next earnings</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <span class="label">The sheet</span>
+    <h2>What an issue looks like</h2>
+    <p class="sub">One table, twenty-five rows, published every Sunday before the US open. Sortable by any column in the live issue.</p>
+    <div class="sheet">
+      <div class="bar"><span>WheelSheet · issue 000</span><span class="ex">Example rows · first live issue Sunday 7 September 2026</span></div>
+      <div class="tablewrap"><table>
+        <thead><tr>
+          <th>Name</th><th>Spot</th><th>Put yield /yr</th><th>Strike ~Δ30</th><th>IV</th><th>IV rank</th><th>IV pctile</th><th>HV30</th><th>VRP</th><th>Exp. move</th><th>Earnings</th><th>Chain OI</th><th>Held above strike, 2y</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="t">AMD<span>Semiconductors</span></td><td>168.40</td><td class="y">38.2%</td><td>150</td><td>48.1%</td><td>44</td><td>39</td><td>41.7%</td><td>+6.4</td><td>13.9%</td><td>47 d</td><td>412k</td><td>81%</td></tr>
+          <tr><td class="t">NVDA<span>Semiconductors</span></td><td>224.32</td><td class="y">22.7%</td><td>205</td><td>32.5%</td><td>7</td><td>3</td><td>45.3%</td><td>−12.8</td><td>8.4%</td><td>75 d</td><td>1.36m</td><td>84%</td></tr>
+          <tr><td class="t">XOM<span>Integrated oil</span></td><td>121.90</td><td class="y">17.9%</td><td>114</td><td>24.6%</td><td>58</td><td>62</td><td>19.8%</td><td>+4.8</td><td>7.1%</td><td>58 d</td><td>288k</td><td>88%</td></tr>
+          <tr><td class="t">KO<span>Beverages</span></td><td>71.15</td><td class="y">9.8%</td><td>68</td><td>17.2%</td><td>36</td><td>31</td><td>14.9%</td><td>+2.3</td><td>5.0%</td><td class="e">19 d</td><td>176k</td><td>93%</td></tr>
+          <tr><td class="t">PLTR<span>Software</span></td><td>147.60</td><td class="y">54.6%</td><td>125</td><td>66.9%</td><td>71</td><td>77</td><td>58.2%</td><td>+8.7</td><td>19.3%</td><td>66 d</td><td>903k</td><td>62%</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section id="method">
+    <span class="label">Every column, defined</span>
+    <h2>Where each number comes from</h2>
+    <p class="sub">All figures are derived. No bid, ask or chain quote is republished. The inputs are daily closes and a daily ATM implied-volatility series sourced from Interactive Brokers, plus chain open-interest snapshots.</p>
+    <div class="cols">
+      <div><b>Put yield / yr</b><p>Model premium of the ~0.30-delta, 30-day put (Black–Scholes on the day's IV) divided by the strike, annualised. The cash-on-cash rate a seller is being offered, before assignment.</p></div>
+      <div><b>IV rank · IV percentile</b><p>Where today's 30-day IV sits inside its own 252-trading-day range, and the share of those days that were lower. Both need a real year of daily IV; the series here has one.</p></div>
+      <div><b>HV30 · VRP</b><p>30-day realised volatility from closes, and the vol-risk premium: IV minus HV30 in points. Positive means the market is paying more than the stock has been moving.</p></div>
+      <div><b>Expected move</b><p>One standard deviation to the trade expiry, implied by ATM IV. The width of the range the market is pricing.</p></div>
+      <div><b>Earnings</b><p>Days to the next confirmed report. Rows inside 21 days are marked; they are not removed, because that is your filter, not ours.</p></div>
+      <div><b>Chain OI · liquidity</b><p>Open interest across the trade expiry, and the ATM bid-ask width as a share of mid. Wide markets and thin chains stay on the sheet, flagged.</p></div>
+      <div><b>Held above strike, 2y</b><p>Over the last two years, the share of rolling 30-day windows in which the close never fell below a strike set 1σ under the entry price. A price-history stat, not a backtest of fills.</p></div>
+      <div><b>Universe</b><p>US names with listed options, a live IV history and enough open interest to matter. Twenty-five rows by yield after the reader's own floors on IV rank, earnings distance and liquidity.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="how">
+      <div>
+        <span class="label">Why this exists</span>
+        <h2>Screeners rank by yield. Journals track what you sold. Nobody shows the history behind the filter.</h2>
+        <p>The eight or nine tools in this category cluster at the same price and the same idea: a chain scanner with a yield column. What they cannot show is a year of daily IV per name to make IV rank mean something, or how often a strike at this distance actually held. WheelSheet publishes that, weekly, as a sheet you can check.</p>
+      </div>
+      <div class="quiet">
+        <h3>What you get by joining the waitlist</h3>
+        <ul>
+          <li>The issue every Sunday, as a page and as a CSV you can drop into your own sheet.</li>
+          <li>The column definitions above, kept current when a source or formula changes.</li>
+          <li>One question from us: what would make this worth paying for. That answer shapes what gets built next.</li>
+        </ul>
+        <div class="cta" style="margin-top:18px"><a class="btn primary" href="https://github.com/eitanthti/wheelsheet/issues/new?template=waitlist.yml">Join the waitlist</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="label">Disclaimer</span>
+    <p>WheelSheet is educational information. It is not investment advice, it is not personalised to you, and it is not an offer or solicitation to buy or sell any security or derivative. The author is not a licensed investment adviser in any jurisdiction. Options involve a substantial risk of loss, including the full cash secured against a put. Figures are derived from third-party data that can be late or wrong. You decide what to do, and you carry the outcome. <a href="disclaimer.html">Full disclaimer</a>.</p>
+    <p>© 2026 WheelSheet. Watchlist text CC BY-NC 4.0. Site code MIT. <a href="https://github.com/eitanthti/wheelsheet">Source on GitHub</a>.</p>
+  </footer>
+</div>
+</body>
+</html>
