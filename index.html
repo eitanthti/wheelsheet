@@ -103,7 +103,7 @@ footer .label{margin-bottom:6px;display:block}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="./">WheelSheet<small>weekly · Sunday</small></a>
-    <nav><a href="watchlist/">Latest issue</a><a href="#method">Method</a><a href="https://github.com/eitanthti/wheelsheet">GitHub</a></nav>
+    <nav><a href="watchlist/">Latest issue</a><a href="#method">Method</a><a href="held-rate.html">Held rate</a><a href="https://github.com/eitanthti/wheelsheet">GitHub</a></nav>
   </header>
 
   <div class="hero">
@@ -158,8 +158,8 @@ footer .label{margin-bottom:6px;display:block}
       <div><b>HV30 · VRP</b><p>30-day realised volatility from closes, and the vol-risk premium: IV minus HV30 in points. Positive means the market is paying more than the stock has been moving.</p></div>
       <div><b>Expected move</b><p>One standard deviation to the trade expiry, implied by ATM IV. The width of the range the market is pricing.</p></div>
       <div><b>Earnings</b><p>Days to the next confirmed report. Rows inside 21 days are marked; they are not removed, because that is your filter, not ours.</p></div>
-      <div><b>Chain OI · liquidity</b><p>Open interest across the trade expiry, and the ATM bid-ask width as a share of mid. Wide markets and thin chains stay on the sheet, flagged.</p></div>
-      <div><b>Held above strike, 2y</b><p>Over the last two years, the share of rolling 30-day windows in which the close never fell below a strike set 1σ under the entry price. A price-history stat, not a backtest of fills.</p></div>
+      <div><b>Chain OI · liquidity</b><p>Open interest across the trade expiry, shown and not filtered on. Liquidity is filtered by 20-day average share volume, at least 500K, because no quote is republished and no spread is measured here.</p></div>
+      <div><b>Held above strike, 2y</b><p>Over the last ~500 trading days, the share of days where the close 21 trading days later was above the 0.30-delta strike computed from that day’s own price and IV. One look at the end of each window, not a path check. A price-history frequency, not a backtest of fills: <a href="held-rate.html">what it leaves out</a>.</p></div>
       <div><b>Universe</b><p>US names with listed options, a live IV history and enough open interest to matter. Up to twenty-five rows by yield after the reader's own floors on IV rank, earnings distance and liquidity.</p></div>
     </div>
   </section>
