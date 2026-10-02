@@ -13,7 +13,6 @@ cp "$HTML" "watchlist/$DATE.html"
 cp "$HTML" "watchlist/index.html"
 if [ -n "$CSV" ]; then cp "$CSV" "watchlist/$DATE.csv"; fi
 git add watchlist/
-git commit -m "Issue $DATE" -m "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01BjCZ8RQAoMgpuGdwNDA2h2"
+git commit -m "Issue $DATE" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 git push origin main
 echo "published https://eitanthti.github.io/wheelsheet/watchlist/$DATE.html"
